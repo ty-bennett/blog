@@ -6,13 +6,16 @@ frontend:
         - 'echo "Using system Node"'
         - 'node -v'
         - 'npm -v'
-        - 'npm ci --unsafe-perm --legacy-peer-deps --loglevel=verbose'
+        - 'npm ci'
     build:
       commands:
+        - 'echo set locale'
+        - 'export LANG="en_US.UTF-8" || export LANG="C.UTF-8"'
+        - 'export LC_ALL="en_US.UTF-8"  || export LC_ALL="C.UTF-8"'
         - 'echo "Ensure bundler"'
         - 'gem install bundler --no-document || true'
         - 'bundle config set path "vendor/bundle" || true'
-        - 'bundle install --jobs=4 --retry=3'
+        - 'bundle install'
         - 'echo "npm run build"'
         - 'npm run build'
         - 'echo "jekyll build"'
