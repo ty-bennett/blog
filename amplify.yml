@@ -6,7 +6,7 @@ frontend:
         - 'echo "Using system Node"'
         - 'node -v'
         - 'npm -v'
-        - 'npm ci --loglevel verbose'
+        - 'npm ci --unsafe-perm --legacy-peer-deps --loglevel=warn'
     build:
       commands:
         - 'echo "Ensure bundler"'
