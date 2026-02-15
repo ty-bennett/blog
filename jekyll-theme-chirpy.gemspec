@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
     "plugin_type"       => "theme"
   }
 
-  spec.required_ruby_version = "~> 4.0"
+  spec.required_ruby_version = "~> 3.2"
 
   spec.add_runtime_dependency "jekyll", "~> 4.3"
   spec.add_runtime_dependency "jekyll-paginate", "~> 1.1"
