@@ -1,0 +1,30 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - 'echo "Using system Node"'
+        - 'node -v'
+        - 'npm -v'
+        - 'npm ci --loglevel verbose'
+    build:
+      commands:
+        - 'echo "Ensure bundler"'
+        - 'gem install bundler --no-document || true'
+        - 'bundle config set path "vendor/bundle" || true'
+        - 'bundle install --jobs=4 --retry=3'
+        - 'echo "npm run build"'
+        - 'npm run build'
+        - 'echo "jekyll build"'
+        - 'bundle exec jekyll build --config _config.yml'
+        - 'echo "site listing"'
+        - 'ls -la _site || true'
+  artifacts:
+    baseDirectory: _site
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
+      - vendor/bundle/**/*
+
