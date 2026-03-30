@@ -24,3 +24,8 @@ node_modules
 # Misc
 _sass/vendors
 assets/js/dist
+
+# Hidden system files
+*~
+.DS_Store
+Thumbs.db
