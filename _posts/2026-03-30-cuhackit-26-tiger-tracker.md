@@ -28,7 +28,19 @@ That brings us to Bedrock. We used Claude 3.5 Haiku with a curated toolset to he
 
 We also wanted to make sure only certain people could access our app. Cognito is a great solution for something like this — we restricted sign-ups to `@clemson.edu` email addresses only using a pre-signup Lambda, and it issued JWT tokens whenever users logged in so they could access what they needed to. Admins could do things like add new cameras and register them to specific locations using lat/long coordinates.
 
+![Tiger Tracker sign-up page showing the Cognito domain restriction in action](/assets/img/posts/tiger-tracker/signup-error.png){: .shadow }
+_Trying to sign up with a non-Clemson email — the pre-signup Lambda blocks it immediately._
+
+![Tiger Tracker sign-in page](/assets/img/posts/tiger-tracker/signin.png){: .shadow }
+_The sign-in screen after switching to a valid `@clemson.edu` address._
+
 Lastly, the frontend was written in React with TypeScript and we used Vite for the build system, since we were all pretty familiar with those technologies. We ended up going with the obvious choice, Amplify, to host our site. Since everything on the backend was handled by Lambda functions, we could host only our frontend on Amplify as a SPA and have data get updated with polling every 10 seconds.
+
+![Tiger Tracker live dashboard with Campus Assistant chat](/assets/img/posts/tiger-tracker/dashboard-chat.png){: .shadow }
+_The live dashboard with the Campus Assistant open — here it's telling us Raising Cane's is at 85% capacity and suggesting the 2–4 PM window to avoid the lunch rush._
+
+![Tiger Tracker live dashboard](/assets/img/posts/tiger-tracker/dashboard.png){: .shadow }
+_The full dashboard view showing the interactive map, real-time occupancy stats, and the location sidebar._
 
 ---
 
