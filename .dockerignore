@@ -1,0 +1,26 @@
+# Never ship host-built dependencies into the image — the final `COPY . .`
+# would overwrite what `bundle install` / `npm ci` just built.
+node_modules
+vendor
+.bundle
+
+# Build output
+_site
+.jekyll-cache
+.jekyll-metadata
+assets/js/dist
+_sass/vendors
+
+# VCS / tooling
+.git
+.github
+.husky
+.vscode
+.idea
+.devcontainer
+
+# Misc
+*.gem
+*~
+.DS_Store
+Thumbs.db
