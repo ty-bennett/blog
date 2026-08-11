@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tybennett-blog
+  namespace: public
+spec:
+  selector:
+    app: tybennett-blog
+  ports:
+    - name: http
+      port: 4000
+      targetPort: 4000

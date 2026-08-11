@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tybennett-blog
+  namespace: public
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: tybennett-blog
+  template:
+    metadata:
+      labels:
+        app: tybennett-blog
+    spec:
+      containers:
+        - name: tybennett-blog
+          image:
+          ports:
+            - name: http
+              containerPort: 4000
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 4000
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              memory: 512Mi

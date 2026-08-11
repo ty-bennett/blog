@@ -205,6 +205,7 @@ compress_html:
 exclude:
   - "*.gem"
   - "*.gemspec"
+  - deploy
   - docs
   - tools
   - README.md
