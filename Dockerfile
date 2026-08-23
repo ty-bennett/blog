@@ -5,9 +5,9 @@ FROM ruby:3.4-slim
 WORKDIR /app
 
 # Install system dependencies, locales, git, and Node 22 (includes npm)
-RUN apt-get update \
-  && apt-get install -y ca-certificates curl gnupg build-essential git locales \
-  && curl -fsSL https://deb.nodesource.com/setup_22.x | sh - && apt-get install -y --no-install-recommends nodejs
+RUN apt-get update && apt-get install -y ca-certificates curl gnupg build-essential git locales \
+  && curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
+  && apt-get install -y nodejs
 
 # Copy gem deps
 COPY Gemfile Gemfile.lock* *.gemspec ./
@@ -20,9 +20,6 @@ COPY package.json package-lock.json* ./
 
 RUN npm ci
 
-# Copy rest of the website. Must be `COPY . .` — `COPY * .` would expand the
-# glob and flatten every top-level directory's contents into /app, scattering
-# _posts/, _layouts/ and _includes/ into the root and breaking the build.
 COPY . .
 
 # Build front end assets
