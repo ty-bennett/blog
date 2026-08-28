@@ -4,9 +4,9 @@ metadata:
   name: tybennett-blog
   namespace: public
 spec:
+  type: LoadBalancer
   selector:
     app: tybennett-blog
   ports:
-    - name: http
-      port: 4000
+    - port: 4000
       targetPort: 4000
