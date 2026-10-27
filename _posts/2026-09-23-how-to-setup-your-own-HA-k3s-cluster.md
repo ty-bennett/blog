@@ -3,7 +3,7 @@ title: "How to Set Up Your own HA K3s Cluster"
 date: 2026-09-23 00:00:00 -0500
 categories: [Projects, Homelab]
 tags: [beginner, kubernetes, opensource]
-description: A writeup of how to get started with the Strands SDK and use AWS Bedrock and AgentCore to deploy your agents to AWS.
+description: How to get started with the K3s and make your own HA K3s Cluster using KubeVIP
 ---
 
 # Overview
@@ -19,18 +19,19 @@ So, lets get into it.
   - do this across all ctrl plane nodes
 - next, create a `config.yaml` file at `/etc/rancher/k3s/config.yaml` to use whenever you first install, also used in case the k3s service restarts
   - `sudo vi /etc/rancher/k3s/config.yaml`
-  ```yaml
-  ty@node0:~> cat /etc/rancher/k3s/config.yaml
-  cluster-init: true
-  write-kubeconfig-mode: "0644"
-  token: <your token>
-  tls-san:
-  - 192.168.68.49 #virtual IP we used for the kube-vip load balancer later
-  - node0.tailnetname.ts.net # a control plane node MagicDNS name
-  - 100.X.X.X # a control plane node tailscale IP
-  - node1.tailnetname.ts.net # same as above
-  - 100.X.X.X # same as above
-  ```
+
+```yaml
+ty@node0:~> cat /etc/rancher/k3s/config.yaml
+cluster-init: true
+write-kubeconfig-mode: "0644"
+token: <your token>
+tls-san:
+- 192.168.68.49 #virtual IP we used for the kube-vip load balancer later
+- node0.tailnetname.ts.net # a control plane node MagicDNS name
+- 100.X.X.X # a control plane node tailscale IP
+- node1.tailnetname.ts.net # same as above
+- 100.X.X.X # same as above
+```
 
 - The cluster-init key lets k3s know that this is the first node and to setup everything required to create a  cluster whenever you install
 - The write-kubeconfig-mode: "0644" gives permissions to all your control plane nodes to be able to use kubectl from within their own device
@@ -187,8 +188,6 @@ node1      Ready    control-plane,etcd   28h     v1.36.2+k3s1
 opensuse   Ready    control-plane,etcd   26h     v1.36.2+k3s1
 ```
 
-- ![[Pasted image 20260720221353.png]]
-
 ## Joining Agents
 
 - Now we are going to work on getting our cluster node agents setup
@@ -217,9 +216,8 @@ ty@node0:~>
 - you can optionally label the pi as a worker for things like helm charts since some of them look for the worker role as a selector for where to place pods
 - `kubectl label node pi0 node-role.kubernetes.io/worker=worker`
 - after:
-- ```
 
-```
+```txt
 ty@node0:-> k get nodes
 NAME       STATUS   ROLES                AGE     VERSION
 node0      Ready    control-plane,etcd   29h     v1.36.2+k3s1
@@ -231,7 +229,7 @@ ty@node0:~>
 
 - now we can repeat this process for each of the agent nodes
 
-```
+```txt
 ty@node0:-> k get nodes
 NAME       STATUS   ROLES                AGE     VERSION
 node0      Ready    control-plane,etcd   30h     v1.36.2+k3s1
