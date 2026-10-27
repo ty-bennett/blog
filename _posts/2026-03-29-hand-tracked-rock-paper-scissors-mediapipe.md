@@ -1,8 +1,8 @@
 ---
 title: "Building a Hand-Tracked Rock Paper Scissors Game with MediaPipe"
 date: 2026-03-29 12:00:00 -0400
-categories: [Projects, AI]
-tags: [javascript, mediapipe, computer-vision, ml, webcam, games]
+categories: [AI/ML]
+tags: [javascript, mediapipe, computer-vision, ml, games]
 description: A technical writeup of my hand-tracked Rock Paper Scissors project, including how MediaPipe Hands works, how the browser app uses landmarks, and how simple gesture logic turns hand positions into gameplay.
 ---
 
